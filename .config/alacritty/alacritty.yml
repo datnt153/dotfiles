@@ -37,7 +37,7 @@ mouse:
 mouse_bindings:
   - { mouse: Middle, action: PasteSelection }
 
-live_config_reload: true
+general.live_config_reload: true
 
 cursor:
   # Cursor style

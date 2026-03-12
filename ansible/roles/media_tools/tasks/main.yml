@@ -1,0 +1,7 @@
+---
+- name: Install media tools
+  apt:
+    name:
+      - ffmpeg
+    state: present
+  become: yes

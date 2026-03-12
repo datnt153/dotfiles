@@ -1,0 +1,10 @@
+---
+- name: Setup workstation
+  hosts: localhost
+  connection: local
+
+  roles:
+    - role: common          # 1. Cài apt packages (curl, wget, htop, stow...)
+    - role: dev_tools       # 2. Cài dev tools (git, zsh, tmux, uv, TPM, antigen)
+    - role: media_tools     # 3. Cài media tools (ffmpeg)
+    - role: dotfiles        # 4. CUỐI CÙNG: clone dotfiles + stow configs

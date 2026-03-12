@@ -1,20 +1,63 @@
-# Datnt114's' dotfiles
+# Datnt114's dotfiles
 
-## Requirements
-- [A Nerd Font](https://www.nerdfonts.com/font-downloads) (it's for the icons)
-- [kitty](https://sw.kovidgoyal.net/kitty/) (a fast GPU based terminal emulator)
+Dotfiles + Ansible automation cho workstation/dev machine.
 
+## Quick Setup
 
-## Install 
 ```bash
-cd ~
-git clone https://github.com/datnt153/dotfiles.git
-cd dotfiles 
-stow .
+# 1. Cài Ansible
+sudo apt install -y ansible
+
+# 2. Clone dotfiles
+git clone https://github.com/datnt153/dotfiles.git ~/dotfiles
+
+# 3. Chạy setup
+cd ~/dotfiles/ansible && ansible-playbook playbooks/setup_workstation.yml --ask-become-pass
 ```
 
-## Reference 
+> Chi tiết: [docs/SERVER_SETUP.md](docs/SERVER_SETUP.md)
+
+## Configs
+
+| Config | Path | Mô tả |
+|--------|------|--------|
+| zsh | `.zshrc` | Antigen, p10k, fzf, aliases |
+| tmux | `.tmux.conf` | Tokyo Night theme, TPM plugins |
+| kitty | `.config/kitty/` | GPU terminal emulator |
+| alacritty | `.config/alacritty/` | Terminal emulator |
+| Claude Code | `.claude/` | Settings, hooks, CLAUDE.md |
+| Amp | `.config/amp/` | AI coding assistant |
+| Factory | `.factory/` | Droid AI assistant |
+
+## AI Tools — Co-author Disabled
+
+Tất cả AI tools đều tắt co-author trong commit messages:
+
+- **Claude Code**: `CLAUDE.md` → `Dont have co-auth`
+- **Amp**: `"amp.git.commit.coauthor.enabled": false`
+- **Factory**: `"includeCoAuthoredByDroid": false`
+
+## Ansible Roles
+
+| Role | Packages |
+|------|----------|
+| common | curl, wget, htop, tree, ncdu, duf, rsync, zip, unzip, neofetch, stow, jq, dust |
+| dev_tools | git, zsh, tmux, neovim, python3, uv, TPM, antigen, build-essential |
+| media_tools | ffmpeg |
+| dotfiles | Clone repo + `stow --adopt .` |
+
+## Requirements
+
+- Ubuntu/Debian
+- [Nerd Font](https://www.nerdfonts.com/font-downloads) (cho icons)
+
+## Manual Stow (không dùng Ansible)
+
+```bash
+cd ~/dotfiles && stow .
+```
+
+## Reference
+
 - [nikolovlazar dotfiles](https://github.com/nikolovlazar/dotfiles/)
 - [tokyo-night-tmux](https://github.com/janoamaral/tokyo-night-tmux)
-
-

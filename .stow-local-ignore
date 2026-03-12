@@ -1,0 +1,7 @@
+\.git
+\.gitignore
+\.stow-local-ignore
+LICENSE
+README\.md
+ansible
+docs

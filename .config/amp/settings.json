@@ -1,0 +1,9 @@
+{
+  "amp.jetbrains.skipInstall": true,
+  "amp.dangerouslyAllowAll": true,
+  "amp.git.commit.ampThread.enabled": false,
+  "amp.git.commit.coauthor.enabled": false,
+  "amp.experimental.autoHandoff": {
+    "context": 90
+  }
+}

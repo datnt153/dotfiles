@@ -1,0 +1,54 @@
+---
+- name: Install development tools
+  apt:
+    name:
+      - git
+      - zsh
+      - tmux
+      - neovim
+      - python3
+      - python3-pip
+      - build-essential
+    state: present
+  become: yes
+
+- name: Install uv (Python package manager)
+  shell: curl -LsSf https://astral.sh/uv/install.sh | sh
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/bin/uv"
+
+- name: Install TMUX Plugin Manager (TPM)
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+    version: master
+
+- name: Install Antigen (zsh plugin manager)
+  shell: |
+    mkdir -p {{ ansible_env.HOME }}/.antigen/antigen
+    curl -L git.io/antigen > {{ ansible_env.HOME }}/.antigen/antigen/antigen.zsh
+  args:
+    creates: "{{ ansible_env.HOME }}/.antigen/antigen/antigen.zsh"
+
+- name: Set zsh as default shell
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /usr/bin/zsh
+  become: yes
+
+- name: Generate SSH key if not exists
+  command: ssh-keygen -t ed25519 -C "{{ ansible_user_id }}@{{ ansible_hostname }}" -f {{ ansible_env.HOME }}/.ssh/id_ed25519 -N ""
+  args:
+    creates: "{{ ansible_env.HOME }}/.ssh/id_ed25519"
+
+- name: Display SSH public key
+  command: cat {{ ansible_env.HOME }}/.ssh/id_ed25519.pub
+  register: ssh_pub_key
+  changed_when: false
+
+- name: Show SSH public key
+  debug:
+    msg: |
+      === SSH PUBLIC KEY (add to GitHub) ===
+      {{ ssh_pub_key.stdout }}
+      =======================================

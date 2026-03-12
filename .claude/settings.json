@@ -1,0 +1,16 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/.claude/statusline.cjs",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "compounding-engineering@every-marketplace": true
+  },
+  "language": "Vietnamese",
+  "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true
+}

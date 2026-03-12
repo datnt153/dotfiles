@@ -1,0 +1,42 @@
+---
+- name: Check if dotfiles repo exists
+  stat:
+    path: "{{ ansible_env.HOME }}/dotfiles"
+  register: dotfiles_dir
+
+- name: Clone dotfiles (HTTPS, no SSH key needed)
+  git:
+    repo: https://github.com/datnt153/dotfiles.git
+    dest: "{{ ansible_env.HOME }}/dotfiles"
+  when: not dotfiles_dir.stat.exists
+
+- name: Backup existing config files before stow
+  shell: |
+    for f in .tmux.conf .zshrc; do
+      if [ -f "{{ ansible_env.HOME }}/$f" ] && [ ! -L "{{ ansible_env.HOME }}/$f" ]; then
+        mv "{{ ansible_env.HOME }}/$f" "{{ ansible_env.HOME }}/${f}.backup"
+      fi
+    done
+  args:
+    executable: /bin/bash
+
+- name: Backup existing config directories before stow
+  shell: |
+    for d in .claude .config/amp .factory; do
+      if [ -d "{{ ansible_env.HOME }}/$d" ] && [ ! -L "{{ ansible_env.HOME }}/$d" ]; then
+        cp -r "{{ ansible_env.HOME }}/$d" "{{ ansible_env.HOME }}/${d}.backup" 2>/dev/null || true
+      fi
+    done
+  args:
+    executable: /bin/bash
+
+- name: Run stow to create symlinks
+  shell: cd {{ ansible_env.HOME }}/dotfiles && stow --adopt .
+  args:
+    executable: /bin/bash
+
+- name: Install tmux plugins via TPM
+  shell: "{{ ansible_env.HOME }}/.tmux/plugins/tpm/bin/install_plugins"
+  args:
+    executable: /bin/bash
+  ignore_errors: yes

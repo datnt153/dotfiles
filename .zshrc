@@ -1,6 +1,5 @@
-# Ansible managed
 # zsh version: 5.8.1
-# antigen version: 
+# antigen version:
 
 export TERM="xterm-256color"
 export PATH="$PATH:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
@@ -49,7 +48,7 @@ antigen bundle pip
 antigen bundle rake
 antigen bundle symfony2
 antigen bundle systemd
-antigen bundle python
+#antigen bundle python
 antigen bundle tmux
 antigen bundle vagrant
 antigen bundle zsh-users/zsh-autosuggestions
@@ -113,6 +112,9 @@ bindkey '^@dso' fzf-docker-stop-containers
 alias "apt-update-list-upgrade"="apt update && apt upgrade --dry-run | grep Inst | sort | fzf && apt upgrade"
 alias "dfh"="df -h | grep -v docker"
 alias "ubuntu-release"="lsb_release -a"
+alias cursor='~/Applications/cursor.AppImage --no-sandbox'
+alias cc='claude --dangerously-skip-permissions'
+alias ccagy='ccs agy --dangerously-skip-permissions'
 
 # fzf
 export FZF_TMUX=0
@@ -177,3 +179,21 @@ setopt SHARE_HISTORY
 #autoload -Uz add-zsh-hook
 #add-zsh-hook preexec history -a
 
+eval "$(uv generate-shell-completion zsh)"
+export PATH="$PATH:/opt/mssql-tools18/bin"
+export PATH="$PATH:/opt/mssql-tools18/bin"
+
+# pnpm
+export PNPM_HOME="/home/dat/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+
+# For Amp cloud features, get your API key from https://ampcode.com/settings
+# and add it to ProxyPal Settings > Amp CLI Integration > Amp API Key
+
+# Amp CLI
+export PATH="/home/dat/.amp/bin:$PATH"
