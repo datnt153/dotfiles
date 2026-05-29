@@ -9,7 +9,36 @@
       - python3
       - python3-pip
       - build-essential
+      - postgresql-client   # psql CLI để kết nối DB
     state: present
+  become: yes
+
+- name: Create apt keyrings directory
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+  become: yes
+
+- name: Add GitHub CLI GPG key
+  get_url:
+    url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    dest: /etc/apt/keyrings/githubcli-archive-keyring.gpg
+    mode: "0644"
+  become: yes
+
+- name: Add GitHub CLI apt repository
+  apt_repository:
+    repo: "deb [arch={{ 'arm64' if ansible_architecture == 'aarch64' else 'amd64' }} signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"
+    filename: github-cli
+    state: present
+  become: yes
+
+- name: Install GitHub CLI (gh)
+  apt:
+    name: gh
+    state: present
+    update_cache: yes
   become: yes
 
 - name: Install uv (Python package manager)
@@ -26,7 +55,7 @@
 - name: Install Antigen (zsh plugin manager)
   shell: |
     mkdir -p {{ ansible_env.HOME }}/.antigen/antigen
-    curl -L git.io/antigen > {{ ansible_env.HOME }}/.antigen/antigen/antigen.zsh
+    curl -L https://raw.githubusercontent.com/zsh-users/antigen/master/bin/antigen.zsh > {{ ansible_env.HOME }}/.antigen/antigen/antigen.zsh
   args:
     creates: "{{ ansible_env.HOME }}/.antigen/antigen/antigen.zsh"
 

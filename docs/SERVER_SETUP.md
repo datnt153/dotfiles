@@ -30,9 +30,14 @@ cd ~/dotfiles/ansible && ansible-playbook playbooks/setup_workstation.yml --ask-
 
 Playbook sẽ chạy theo thứ tự:
 1. **common** — cài apt packages (curl, wget, htop, stow, jq...)
-2. **dev_tools** — cài git, zsh, tmux, neovim, uv, TPM, antigen, tạo SSH key
-3. **media_tools** — cài ffmpeg
-4. **dotfiles** — clone dotfiles repo + chạy `stow --adopt .` để tạo symlinks
+2. **dev_tools** — cài git, gh, zsh, tmux, neovim, psql, uv, TPM, antigen, tạo SSH key
+3. **docker** — cài Docker CE + compose plugin, thêm user vào group `docker`
+4. **media_tools** — cài ffmpeg
+5. **dotfiles** — clone dotfiles repo + chạy `stow --adopt .` để tạo symlinks
+
+> **Docker không cần sudo:** role `docker` đã thêm user vào group `docker`
+> (`usermod -aG docker $USER`). Group chỉ áp dụng cho **session login mới** → sau khi cài
+> phải **logout/login lại** (hoặc `newgrp docker`) thì `docker ps` mới chạy được không cần sudo.
 
 ### Bước 4: Mở zsh mới
 

@@ -42,7 +42,8 @@ Tất cả AI tools đều tắt co-author trong commit messages:
 | Role | Packages |
 |------|----------|
 | common | curl, wget, htop, tree, ncdu, duf, rsync, zip, unzip, neofetch, stow, jq, dust |
-| dev_tools | git, zsh, tmux, neovim, python3, uv, TPM, antigen, build-essential |
+| dev_tools | git, gh (GitHub CLI), zsh, tmux, neovim, python3, uv, TPM, antigen, build-essential, postgresql-client (psql) |
+| docker | docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin, docker-compose-plugin (+ thêm user vào group `docker`) |
 | media_tools | ffmpeg |
 | dotfiles | Clone repo + `stow --adopt .` |
 

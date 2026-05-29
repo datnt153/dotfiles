@@ -136,7 +136,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=240" # gray highlight
 
 # PATHS
 source /etc/profile
-source "$HOME/.rye/env"
+[[ -r "$HOME/.rye/env" ]] && source "$HOME/.rye/env"
 
 
 # user configs

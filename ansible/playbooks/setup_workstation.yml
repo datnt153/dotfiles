@@ -5,6 +5,7 @@
 
   roles:
     - role: common          # 1. Cài apt packages (curl, wget, htop, stow...)
-    - role: dev_tools       # 2. Cài dev tools (git, zsh, tmux, uv, TPM, antigen)
-    - role: media_tools     # 3. Cài media tools (ffmpeg)
-    - role: dotfiles        # 4. CUỐI CÙNG: clone dotfiles + stow configs
+    - role: dev_tools       # 2. Cài dev tools (git, gh, zsh, tmux, neovim, psql, uv, TPM, antigen)
+    - role: docker          # 3. Cài Docker CE + compose plugin + add user vào group docker
+    - role: media_tools     # 4. Cài media tools (ffmpeg)
+    - role: dotfiles        # 5. CUỐI CÙNG: clone dotfiles + stow configs
